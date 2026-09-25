@@ -117,3 +117,9 @@ html{overflow-x:clip}body{animation:page-enter .65s ease both;overflow-x:hidden}
   .header nav>a:not(.button){font-size:12px}
   .header-cta{min-height:48px;padding:10px 20px;font-size:11.5px}
 }
+
+@media(max-width:600px){
+  .header.menu-open nav{align-items:center}
+  .header nav>a:not(.button){width:100%;text-align:center}
+  .header-cta{align-self:center}
+}
