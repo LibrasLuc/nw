@@ -1,0 +1,21 @@
+{
+  "name": "ws",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 0.0.0.0",
+    "build": "node scripts/remove-logo-background.mjs && node scripts/prepare-assets.mjs && node scripts/build.mjs && node scripts/seo.mjs",
+    "preview": "vite preview --host 0.0.0.0",
+    "test": "playwright test"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "@playwright/test": "^1.63.0",
+    "sharp": "^0.35.4",
+    "vite": "^8.3.1"
+  }
+}
