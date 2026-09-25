@@ -26,6 +26,51 @@ document.addEventListener('keydown', event => { if (event.key === 'Escape') clos
 document.addEventListener('click', event => { if (!header.contains(event.target)) closeMenu(); });
 window.matchMedia('(min-width: 1101px)').addEventListener('change', () => closeMenu());
 
+let scrollAnimation;
+document.querySelectorAll('a[href^="#"]').forEach(link => {
+  link.addEventListener('click', event => {
+    const id = link.getAttribute('href');
+    const target = id === '#' ? null : document.querySelector(id);
+    if (!target) return;
+
+    event.preventDefault();
+    cancelAnimationFrame(scrollAnimation);
+
+    const start = window.scrollY;
+    const headerOffset = id === '#inicio' ? 0 : header.getBoundingClientRect().height + 16;
+    const destination = Math.max(0, target.getBoundingClientRect().top + start - headerOffset);
+    const distance = destination - start;
+
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      document.documentElement.classList.remove('is-programmatic-scroll');
+      window.scrollTo(0, destination);
+      history.pushState(null, '', id);
+      return;
+    }
+
+    const duration = Math.min(1100, Math.max(600, Math.abs(distance) * .22));
+    const startedAt = performance.now();
+    document.documentElement.classList.add('is-programmatic-scroll');
+
+    const animate = now => {
+      const progress = Math.min(1, (now - startedAt) / duration);
+      const eased = progress < .5
+        ? 4 * progress ** 3
+        : 1 - (-2 * progress + 2) ** 3 / 2;
+      window.scrollTo(0, start + distance * eased);
+
+      if (progress < 1) {
+        scrollAnimation = requestAnimationFrame(animate);
+      } else {
+        document.documentElement.classList.remove('is-programmatic-scroll');
+        history.pushState(null, '', id);
+      }
+    };
+
+    scrollAnimation = requestAnimationFrame(animate);
+  });
+});
+
 const reducedMotion = { matches: false };
 document.querySelectorAll('.about-visual, .property-photo, .office > div:first-child').forEach(element => element.classList.add('reveal-left'));
 document.querySelectorAll('.about-copy, .property-copy, .map-wrap').forEach(element => element.classList.add('reveal-right'));
