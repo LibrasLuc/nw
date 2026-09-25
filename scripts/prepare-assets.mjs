@@ -14,8 +14,8 @@ const faviconMark = await sharp('public/images/monogram.webp')
   .toBuffer();
 
 for (const size of [32, 180, 512]) {
-  const markWidth = Math.round(size * .64);
-  const markHeight = Math.round(size * .49);
+  const markWidth = Math.round(size * .78);
+  const markHeight = Math.round(size * .60);
   const mark = await sharp(faviconMark)
     .resize(markWidth, markHeight, { fit: 'inside' })
     .png()
