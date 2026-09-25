@@ -111,3 +111,9 @@ html{overflow-x:clip}body{animation:page-enter .65s ease both;overflow-x:hidden}
 /* Keep full head inside reveal mask, including floating movement. */
 .hero-portrait.has-portrait>img{height:calc(100% - 20px);max-height:calc(100% - 20px);max-width:118%;object-position:center bottom}
 @media(max-width:600px){.hero-portrait.has-portrait>img{height:calc(100% - 18px);max-height:calc(100% - 18px);max-width:128%}}
+
+/* More legible desktop navigation. */
+@media(min-width:1101px){
+  .header nav>a:not(.button){font-size:12px}
+  .header-cta{min-height:48px;padding:10px 20px;font-size:11.5px}
+}
